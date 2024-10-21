@@ -49,7 +49,6 @@ const productSchema = z.object({
     inStock: z.boolean(),
     weight: z.number().min(0, 'Weight must be a positive number').optional(),
     sizeId: z.number().nullable(),
-    infinityColorId: z.number().nullable(),
     boxColorId: z.number().nullable(),
     wrappingColorId: z.number().nullable(),
     isDefault: z.boolean(),
@@ -105,7 +104,6 @@ export default function ProductForm({ productId, initialData }: ProductFormProps
         inStock: true,
         isDefault: true,
         sizeId: null,
-        infinityColorId: null,
         boxColorId: null,
         wrappingColorId: null,
       }],
@@ -170,15 +168,6 @@ export default function ProductForm({ productId, initialData }: ProductFormProps
       const token = await getToken()
       if (!token) throw new Error('No authentication token available')
       return fetchItems('productSizes', 1, 100, token)
-    },
-  })
-
-  const { data: infinityColors } = useQuery({
-    queryKey: ['infinityColors'],
-    queryFn: async () => {
-      const token = await getToken()
-      if (!token) throw new Error('No authentication token available')
-      return fetchItems('infinityColors', 1, 100, token)
     },
   })
 
@@ -734,31 +723,6 @@ export default function ProductForm({ productId, initialData }: ProductFormProps
                     />
                     <FormField
                       control={form.control}
-                      name={`variations.${index}.infinityColorId`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Infinity Color</FormLabel>
-                          <Select onValueChange={(value) => field.onChange(value === "null" ? null : parseInt(value))} value={field.value?.toString() || "null"}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select an infinity color" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="null">None</SelectItem>
-                            {infinityColors?.items.map((color: any) => (
-                              <SelectItem key={color.id} value={color.id.toString()}>
-                                {color.name_en}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
                       name={`variations.${index}.boxColorId`}
                       render={({ field }) => (
                         <FormItem>
@@ -898,7 +862,6 @@ export default function ProductForm({ productId, initialData }: ProductFormProps
                   inStock: true,
                   isDefault: false,
                   sizeId: null,
-                  infinityColorId: null,
                   boxColorId: null,
                   wrappingColorId: null,
                 })}

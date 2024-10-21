@@ -61,7 +61,7 @@ export default function AddItemButton({ itemType }: AddItemButtonProps) {
       return;
     }
 
-    if (itemType === 'infinityColors' || itemType === 'boxColors' || itemType === 'wrappingColors') {
+    if ( itemType === 'boxColors' || itemType === 'wrappingColors') {
       if (!color || !image) {
         toast({
           title: "Error",
@@ -91,7 +91,7 @@ export default function AddItemButton({ itemType }: AddItemButtonProps) {
           specialPhone: isSpecial ? specialPhone : undefined,
         };
         await addCoupon(data, token);
-      } else if (itemType === 'infinityColors' || itemType === 'boxColors' || itemType === 'wrappingColors') {
+      } else if (itemType === 'boxColors' || itemType === 'wrappingColors') {
         const formData = new FormData();
         formData.append('name_en', nameEn);
         formData.append('name_ar', nameAr);
@@ -148,7 +148,6 @@ export default function AddItemButton({ itemType }: AddItemButtonProps) {
 
   const renderFormFields = () => {
     switch (itemType) {
-      case 'infinityColors':
       case 'boxColors':
       case 'wrappingColors':
         return (

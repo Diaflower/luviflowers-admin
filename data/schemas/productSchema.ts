@@ -31,7 +31,6 @@ export const productFormSchema = z.object({
     inStock: z.boolean(),
     weight: z.number().optional().nullable(),
     sizeId: z.number().optional().nullable(),
-    infinityColorId: z.number().optional().nullable(),
     boxColorId: z.number().optional().nullable(),
     wrappingColorId: z.number().optional().nullable(),
     isDefault: z.boolean(),

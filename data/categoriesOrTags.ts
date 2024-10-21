@@ -33,7 +33,7 @@ export const fetchItems = async (itemType: string, page: number, pageSize: numbe
 export const addItem = async (itemType: string, data: any, token: string) => {
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   
-  if (itemType === 'infinityColors' || itemType === 'boxColors') {
+  if (itemType === 'boxColors') {
     // Use the custom postFormData method for these item types
     const response = await api.postFormData(`/${itemType}/add-item`, data);
     return response.data;

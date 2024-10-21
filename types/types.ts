@@ -69,7 +69,6 @@ export interface ProductVariation {
   inStock: boolean;
   weight?: number;
   sizeId?: number;
-  infinityColorId?: number;
   boxColorId?: number;
   wrappingColorId?: number;
   isDefault: boolean;
@@ -89,7 +88,7 @@ export interface Coupon {
   expiryDate: string;
 }
 
-export type ItemType = 'categories' | 'tags' | 'wrappingColors' | 'productSizes' | 'infinityColors' | 'boxColors' | 'products' | 'addons' | 'addonSizes' |'coupons';
+export type ItemType = 'categories' | 'tags' | 'wrappingColors' | 'productSizes' | 'boxColors' | 'products' | 'addons' | 'addonSizes' |'coupons';
 
 export enum OrderStatus {
   PENDING_PAYMENT = 'PENDING_PAYMENT',
@@ -122,10 +121,6 @@ export interface OrderItem {
   };
   productVariation: {
     size?: {
-      name_en: string;
-      name_ar: string;
-    };
-    infinityColor?: {
       name_en: string;
       name_ar: string;
     };
@@ -214,12 +209,6 @@ export interface ProductSize {
   name_ar: string
 }
 
-export interface InfinityColor {
-  id: number
-  name_en: string
-  name_ar: string
-  color?: string
-}
 
 export interface BoxColor {
   id: number

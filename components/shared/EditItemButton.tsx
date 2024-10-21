@@ -65,7 +65,7 @@ export default function EditItemButton({ item, itemType, onUpdate }: EditItemBut
       return;
     }
 
-    if ((itemType === 'infinityColors' || itemType === 'boxColors' || itemType === 'wrappingColors') && !color) {
+    if ((itemType === 'boxColors' || itemType === 'wrappingColors') && !color) {
       toast({
         title: "Error",
         description: "Color is required for this item type.",
@@ -93,7 +93,7 @@ export default function EditItemButton({ item, itemType, onUpdate }: EditItemBut
           specialPhone: isSpecial ? specialPhone : undefined,
         };
         await updateCoupon(item.id, data, token);
-      } else if (itemType === 'infinityColors' || itemType === 'boxColors' || itemType === 'wrappingColors') {
+      } else if ( itemType === 'boxColors' || itemType === 'wrappingColors') {
         const formData = new FormData();
         formData.append('name_en', nameEn);
         formData.append('name_ar', nameAr);
@@ -136,7 +136,6 @@ export default function EditItemButton({ item, itemType, onUpdate }: EditItemBut
 
   const renderFormFields = () => {
     switch (itemType) {
-      case 'infinityColors':
       case 'boxColors':
       case 'wrappingColors':
         return (

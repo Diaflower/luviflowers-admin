@@ -148,7 +148,6 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
                   </TableCell>
                   <TableCell>
                     {item.productVariation.size?.name_en && <p><strong>Size:</strong> {item.productVariation.size?.name_en}</p>}
-                    {item.productVariation.infinityColor?.name_en && <p><strong>Infinity:</strong> {item.productVariation.infinityColor?.name_en}</p>}
                     {item.productVariation.boxColor?.name_en && <p><strong>Box:</strong> {item.productVariation.boxColor?.name_en}</p>}
                     {item.productVariation.wrappingColor?.name_en && <p><strong>Wrapping:</strong> {item.productVariation.wrappingColor?.name_en}</p>}
                   </TableCell>

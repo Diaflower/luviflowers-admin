@@ -128,10 +128,6 @@ export default function Sidebar() {
                   <TagIcon className="w-4 h-4 mr-3" />
                   <span>Tags</span>
                 </Link>
-                <Link href="/infinity-color" className="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-100">
-                  <Flower className="w-4 h-4 mr-3" />
-                  <span>Infinity Color</span>
-                </Link>
                 <Link href="/box-color" className="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-100">
                   <PackageOpen className="w-4 h-4 mr-3" />
                   <span>Box Color</span>

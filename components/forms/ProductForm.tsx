@@ -17,7 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import Image from 'next/image'
 import { API_URL } from '@/lib/staticData'
-import { Category ,ProductSize,InfinityColor,BoxColor,WrappingColor,ProductTag,Addon } from '@/types/types'
+import { Category ,ProductSize,BoxColor,WrappingColor,ProductTag,Addon } from '@/types/types'
 import { productFormSchema } from '@/data/schemas/productSchema'
 type ProductType = 'LONG_LIFE' | 'BOUQUET' | 'ARRANGEMENT' | 'ACRYLIC_BOX'
 type ProductStatus = 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
@@ -29,7 +29,6 @@ export default function ProductForm({ productId }: { productId?: number }) {
   const router = useRouter()
   const [categories, setCategories] = useState<Category[]>([])
   const [sizes, setSizes] = useState<ProductSize[]>([])
-  const [infinityColors, setInfinityColors] = useState<InfinityColor[]>([])
   const [boxColors, setBoxColors] = useState<BoxColor[]>([])
   const [wrappingColors, setWrappingColors] = useState<WrappingColor[]>([])
   const [tags, setTags] = useState<ProductTag[]>([])
@@ -94,7 +93,6 @@ export default function ProductForm({ productId }: { productId?: number }) {
         const [
           categoriesRes,
           sizesRes,
-          infinityColorsRes,
           boxColorsRes,
           wrappingColorsRes,
           tagsRes,
@@ -102,7 +100,6 @@ export default function ProductForm({ productId }: { productId?: number }) {
         ] = await Promise.all([
           axios.get(`${API_URL}/categories/getAll`, axiosConfig),
           axios.get(`${API_URL}/productSizes/getAll`, axiosConfig),
-          axios.get(`${API_URL}/infinitycolors/getAll`, axiosConfig),
           axios.get(`${API_URL}/boxcolors/getAll`, axiosConfig),
           axios.get(`${API_URL}/wrappingcolors/getAll`, axiosConfig),
           axios.get(`${API_URL}/tags/getAll`, axiosConfig),
@@ -111,7 +108,6 @@ export default function ProductForm({ productId }: { productId?: number }) {
 
         setCategories(categoriesRes.data.items)
         setSizes(sizesRes.data.items)
-        setInfinityColors(infinityColorsRes.data.items)
         setBoxColors(boxColorsRes.data.items)
         setWrappingColors(wrappingColorsRes.data.items)
         setTags(tagsRes.data.items)
@@ -145,7 +141,6 @@ export default function ProductForm({ productId }: { productId?: number }) {
             previousPrice: variation.previousPrice ? Number(variation.previousPrice) : null,
             weight: variation.weight ? Number(variation.weight) : null,
             sizeId: variation.sizeId || null,
-            infinityColorId: variation.infinityColorId || null,
             boxColorId: variation.boxColorId || null,
             wrappingColorId: variation.wrappingColorId || null,
             barcode: variation.barcode || null,
@@ -369,31 +364,6 @@ export default function ProductForm({ productId }: { productId?: number }) {
                   {sizes.map((size) => (
                     <SelectItem key={size.id} value={size.id.toString()}>
                       {size.name_en}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={`variations.${index}.infinityColorId`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Infinity Color</FormLabel>
-              <Select onValueChange={(value) => field.onChange(value !== "null" ? parseInt(value) : null)} value={field.value?.toString() || "null"}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select an infinity color" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="null">None</SelectItem>
-                  {infinityColors.map((color) => (
-                    <SelectItem key={color.id} value={color.id.toString()}>
-                      {color.name_en}
                     </SelectItem>
                   ))}
                 </SelectContent>

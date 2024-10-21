@@ -73,7 +73,6 @@ export default function DataTable({ initialItems, itemType }: DataTableProps) {
 
   const renderTableHeaders = () => {
     switch (itemType) {
-      case 'infinityColors':
       case 'boxColors':
       case 'wrappingColors':
         return (
@@ -131,7 +130,6 @@ export default function DataTable({ initialItems, itemType }: DataTableProps) {
 
   const renderTableRow = (item: Item | Coupon) => {
     switch (itemType) {
-      case 'infinityColors':
       case 'boxColors':
       case 'wrappingColors':
         const colorItem = item as Item
