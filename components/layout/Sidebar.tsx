@@ -61,7 +61,7 @@ export default function Sidebar() {
   return (
     <aside className="w-64 bg-white shadow-lg flex flex-col h-full">
       <div className="p-6">
-        <h1 className="text-2xl font-bold text-gray-800">DiaFlower Admin</h1>
+        <h1 className="text-2xl font-bold text-gray-800">LuviFlowers Admin</h1>
       </div>
       <nav className="flex-1 overflow-y-auto">
         {isAdmin && (
