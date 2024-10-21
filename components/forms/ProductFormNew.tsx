@@ -489,10 +489,10 @@ export default function ProductForm({ productId, initialData }: ProductFormProps
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="LONG_LIFE">Long Life</SelectItem>
                       <SelectItem value="BOUQUET">Bouquet</SelectItem>
                       <SelectItem value="ARRANGEMENT">Arrangement</SelectItem>
-                      <SelectItem value="ACRYLIC_BOX">Acrylic Box</SelectItem>
+                      <SelectItem value="ACRYLIC_ARRANGEMENT">Acrylic Arrangement</SelectItem>
+                      <SelectItem value="CAKES">Cakes</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
