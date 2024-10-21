@@ -15,7 +15,7 @@ export const productFormSchema = z.object({
   metaDescription_ar: z.string().optional(),
   featured: z.boolean(),
   status: z.enum(['DRAFT', 'PUBLISHED', 'ARCHIVED']),
-  productType: z.enum(['LONG_LIFE', 'BOUQUET', 'ARRANGEMENT', 'ACRYLIC_BOX']),
+  productType: z.enum(['BOUQUET', 'ARRANGEMENT', 'ACRYLIC_ARRANGEMENT' ,'CAKES']),
   categoryId: z.number().nullable(),
 
   mainImage: z.object({

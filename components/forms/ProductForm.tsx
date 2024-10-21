@@ -19,7 +19,7 @@ import Image from 'next/image'
 import { API_URL } from '@/lib/staticData'
 import { Category ,ProductSize,BoxColor,WrappingColor,ProductTag,Addon } from '@/types/types'
 import { productFormSchema } from '@/data/schemas/productSchema'
-type ProductType = 'LONG_LIFE' | 'BOUQUET' | 'ARRANGEMENT' | 'ACRYLIC_BOX'
+type ProductType = 'BOUQUET' |'ARRANGEMENT'|'ACRYLIC_ARRANGEMENT'|'CAKES' 
 type ProductStatus = 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
 
 
@@ -53,7 +53,7 @@ export default function ProductForm({ productId }: { productId?: number }) {
       metaDescription_ar: '',
       featured: false,
       status: 'DRAFT' as ProductStatus,
-      productType: 'LONG_LIFE' as ProductType,
+      productType: 'BOUQUET' as ProductType,
       categoryId: null,
       mainImage: {
         image: null,
