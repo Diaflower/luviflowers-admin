@@ -1,5 +1,5 @@
 import api from '@/lib/api';
-import { Order, OrderStatus, OrderHandler, OrdersResponse, Coupon } from '@/types/types';
+import { Order, OrderStatus, OrdersResponse, Coupon } from '@/types/types';
 
 export const fetchOrders = async (
   page: number, 
@@ -63,12 +63,11 @@ export const getOrderById = async (id: string, token: string): Promise<Order> =>
 export const updateOrderStatus = async (
   id: number, 
   status: OrderStatus, 
-  processedBy: OrderHandler | undefined, 
   token: string
 ): Promise<Order> => {
   try {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    const payload = { status, processedBy };
+    const payload = { status };
     const response = await api.patch<Order>(`/orders/${id}/status`, payload);
     return response.data;
   } catch (error) {

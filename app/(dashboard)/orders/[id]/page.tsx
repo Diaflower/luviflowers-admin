@@ -7,7 +7,7 @@ import { useAuth } from '@clerk/nextjs'
 import { format } from 'date-fns'
 import { ArrowLeft, Package, Truck, CheckCircle } from 'lucide-react'
 import { getOrderById } from '@/data/orders'
-import { Order, OrderStatus, OrderHandler } from '@/types/types'
+import { Order, OrderStatus } from '@/types/types'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -81,7 +81,6 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
               <p><strong>Date:</strong> {format(new Date(order.createdAt), 'PPP')}</p>
               <div><strong>Status:</strong> <OrderStatusBadge status={order.status} /></div>
               <p><strong>Total:</strong> AED{(+order.total).toFixed(2)}</p>
-              <p><strong>Processed By:</strong> {order.processedBy || 'Not processed yet'}</p>
             </div>
           </CardContent>
         </Card>
@@ -265,7 +264,6 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
                 <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{format(new Date(order.updatedAt), 'PPP')}</time>
                 <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                   Order is being processed and prepared for shipping.
-                  {order.processedBy && <span className="ml-2">Processed by: {order.processedBy}</span>}
                 </p>
               </div>
             )}
@@ -278,7 +276,6 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
                 <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{format(new Date(order.updatedAt), 'PPP')}</time>
                 <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                   Order has been successfully delivered.
-                  {order.processedBy && <span className="ml-2">Processed by: {order.processedBy}</span>}
                 </p>
               </div>
             )}

@@ -47,7 +47,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { fetchOrders, updateOrderStatus, fetchCoupons } from '@/data/orders'
-import { Order, OrderStatus, OrdersResponse, OrderHandler, Coupon } from '@/types/types'
+import { Order, OrderStatus, OrdersResponse, Coupon } from '@/types/types'
 import { onMessage, Messaging } from 'firebase/messaging'
 import { messaging } from '@/lib/firebase'
 import { fetchItems } from '@/data/categoriesOrTags'
@@ -118,32 +118,21 @@ export default function OrdersTable({ showCoupons = true, showExcelDownload = tr
   })
 
 
-
-  const statusesRequiringHandler: OrderStatus[] = [
-    OrderStatus.PROCESSING,
-    OrderStatus.ON_DELIVERY,
-    OrderStatus.CANCELLED
-  ]
-
-  const updateStatusMutation = useMutation<Order, Error, { orderId: number; newStatus: OrderStatus; processedBy?: OrderHandler }>({
-    mutationFn: async ({ orderId, newStatus, processedBy }) => {
+  const updateStatusMutation = useMutation<Order, Error, { orderId: number; newStatus: OrderStatus }>({
+    mutationFn: async ({ orderId, newStatus}) => {
       const token = await getToken()
       if (!token) {
         throw new Error('No authentication token available')
       }
-      return updateOrderStatus(orderId, newStatus, processedBy, token)
+      return updateOrderStatus(orderId, newStatus, token)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] })
     },
   })
 
-  const handleStatusChange = (orderId: number, newStatus: OrderStatus, processedBy?: OrderHandler) => {
-    if (statusesRequiringHandler.includes(newStatus) && !processedBy) {
-      alert('Please select a handler for this status change.')
-      return
-    }
-    updateStatusMutation.mutate({ orderId, newStatus, processedBy })
+  const handleStatusChange = (orderId: number, newStatus: OrderStatus) => {
+    updateStatusMutation.mutate({ orderId, newStatus })
   }
 
   const isNewOrder = (createdAt: string) => {
@@ -397,28 +386,22 @@ export default function OrdersTable({ showCoupons = true, showExcelDownload = tr
                         <DropdownMenuItem>
                           <Select
                             onValueChange={(value) => {
-                              const [status, handler] = value.split('|') as [OrderStatus, OrderHandler?]
-                              handleStatusChange(order.id, status, handler)
+                              const [status] = value.split('|') as [OrderStatus]
+                              handleStatusChange(order.id, status)
                             }}
-                            defaultValue={`${order.status}|${order.processedBy || ''}`}
+                            defaultValue={`${order.status}`}
                           >
                             <SelectTrigger className="w-[180px]">
                               <SelectValue placeholder="Update status" />
                             </SelectTrigger>
                             <SelectContent>
-                              {Object.values(OrderStatus).map((status) => (
-                                statusesRequiringHandler.includes(status) ? (
-                                  Object.values(OrderHandler).map((handler) => (
-                                    <SelectItem key={`${status}|${handler}`} value={`${status}|${handler}`}>
-                                      {status.replace('_', ' ')} - {handler}
-                                    </SelectItem>
-                                  ))
-                                ) : (
+                              {Object.values(OrderStatus).map((status) => 
+                               (
                                   <SelectItem key={status} value={`${status}|`}>
                                     {status.replace('_', ' ')}
                                   </SelectItem>
                                 )
-                              ))}
+                              )}
                             </SelectContent>
                           </Select>
                         </DropdownMenuItem>

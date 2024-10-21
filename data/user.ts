@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { API_URL } from '@/lib/staticData';
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 export const fetchUserData = async (token: string) => {
   try {

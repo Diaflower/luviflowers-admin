@@ -102,12 +102,7 @@ export enum OrderStatus {
   CASH_PAYMENT= 'CASH_PAYMENT'
 }
 
-export enum OrderHandler {
-  HIND = 'HIND',
-  RUKAIYA = 'RUKAIYA',
-  KRIS = 'KRIS',
-  FATIMA = 'FATIMA'
-}
+
 
 export interface OrderItem {
   id: string;
@@ -166,7 +161,6 @@ export interface Order {
   createdAt: string;
   updatedAt: string;
   status: OrderStatus;
-  processedBy?: OrderHandler; // New field
   total: number;
   subtotal: number;
   taxInfo: number;
